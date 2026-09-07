@@ -7,14 +7,17 @@ spec:
         type: NodePort
         ports:
           - port: 5678
+            displayName: Workflows
       admin:
         type: NodePort
         ports:
           - port: 5678
+            displayName: Admin Console
       creds:
         type: NodePort
         ports:
           - port: 5678
+            displayName: Credentials
       exec:
         type: NodePort
         ports:
