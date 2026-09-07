@@ -1,0 +1,8 @@
+version: "1.0"
+metadata:
+  type: personal
+  updateDate: 2026-09-03
+  name: ARX QA Fixtures
+  description: Test fixtures for ARX QA verification. Not for production use.
+  email: danielhuang@ardge.com
+  url: https://github.com/ardge-labs
