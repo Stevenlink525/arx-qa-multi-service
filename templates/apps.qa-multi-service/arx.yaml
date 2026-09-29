@@ -12,7 +12,7 @@ spec:
         type: NodePort
         ports:
           - port: 5678
-            displayName: Admin Console
+            displayName: Console
       creds:
         type: NodePort
         ports:
