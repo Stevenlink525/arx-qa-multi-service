@@ -26,6 +26,10 @@ spec:
         type: NodePort
         ports:
           - port: 5678
+      internal:
+        type: LoadBalancer
+        ports:
+          - port: 5678
   desktop:
     shortcuts:
       - label: qa-main
