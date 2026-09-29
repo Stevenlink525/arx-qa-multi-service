@@ -50,12 +50,15 @@ spec:
         serviceRef: admin
         scheme: http
         path: /settings/personal
+      # DT-014 probe: /rest/* returns a real HTTP 404 from n8n, unlike the SPA
+      # routes which answer 200 for anything. This is what the spec's Error
+      # Handling section describes - an HTTP error code, not a refused connection.
       - label: qa-creds
         open:
           - iframe
         serviceRef: creds
         scheme: http
-        path: /home/credentials
+        path: /rest/nonexistent
       - label: qa-exec
         open:
           - newtab
