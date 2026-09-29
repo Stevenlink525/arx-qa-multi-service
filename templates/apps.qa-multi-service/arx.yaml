@@ -26,15 +26,14 @@ spec:
         type: NodePort
         ports:
           - port: 5678
-      # SV-006 probe: GatewayAPI is the third and last non-NodePort type. #527
-      # states handler.go returns ErrNotImplemented for GatewayAPI as well as
-      # LoadBalancer, so this is here to confirm that by measurement.
-      internal:
-        type: GatewayAPI
-        route:
-          port: 5678
-          protocol: http
-          displayName: Internal
+      # The test case's sixth service is omitted on purpose. All three
+      # non-NodePort types were measured on 2026-09-29 against 1.1.0-beta.3:
+      #   ClusterIP    rejected by the schema (not in the type enum)
+      #   LoadBalancer accepted by the schema, handler reports not implemented
+      #   GatewayAPI   accepted by the schema, handler reports not implemented
+      # This matches #527, which records that handler.go returns
+      # ErrNotImplemented for GatewayAPI and LoadBalancer until GatewayAPIHandler
+      # lands. Restore the sixth service once that ships, so SV-006 can run.
   desktop:
     shortcuts:
       - label: qa-main
