@@ -1,0 +1,6 @@
+zh-TW:
+  subtitle: 宣告多組 node port 與多筆桌面捷徑的 QA 測試樣本
+  description: >
+    以 n8n chart 為底的 QA 測試樣本，宣告多個 NodePort 服務與多筆桌面捷徑，
+    用於驗證 System Service 表格逐 port 分列與桌面捷徑的 Other Services 選單。
+    非正式用途。

@@ -1,0 +1,43 @@
+# n8n (8gears Helm Chart v2.0.1)
+image:
+  repository: n8nio/n8n
+  pullPolicy: IfNotPresent
+  tag: "1.122.4"
+
+ingress:
+  enabled: false
+
+main:
+  config:
+    n8n:
+      secure_cookie: false
+      # 讓 ARX 桌面能以 iframe 內嵌。n8n（helmet）預設送
+      # X-Frame-Options: SAMEORIGIN 會擋掉跨來源框架；送出帶
+      # frame-ancestors 的 CSP 之後瀏覽器會改以 CSP 為準。
+      content_security_policy: '{"default-src":["*","''unsafe-inline''","''unsafe-eval''","data:","blob:"],"frame-ancestors":["*"]}'
+  secret: {}
+
+  persistence:
+    enabled: true
+    type: dynamic
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+
+  replicaCount: 1
+
+  deploymentStrategy:
+    type: "Recreate"
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi

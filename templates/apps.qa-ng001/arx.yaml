@@ -1,0 +1,63 @@
+apiVersion: arx.ardge.com/v1
+kind: ArxBinding
+spec:
+  network:
+    services:
+      http:
+        type: NodePort
+        ports:
+          - port: 5678
+            displayName: Workflows
+      admin:
+        type: NodePort
+        ports:
+          - port: 5678
+            displayName: Admin Console
+      creds:
+        type: NodePort
+        ports:
+          - port: 5678
+            displayName: Credentials
+      exec:
+        type: NodePort
+        ports:
+          - port: 5678
+      metrics:
+        type: NodePort
+        ports:
+          - port: 5678
+  desktop:
+    shortcuts:
+      - label: qa-main
+        open:
+          - iframe
+          - newtab
+        serviceRef: http
+        scheme: http
+        path: /
+      - label: qa-admin
+        open:
+          - iframe
+          - newtab
+        serviceRef: admin
+        scheme: http
+        path: /settings/personal
+      - label: qa-creds
+        open:
+          - iframe
+        serviceRef: creds
+        scheme: http
+        path: /home/credentials
+      - label: qa-exec
+        open:
+          - newtab
+        serviceRef: exec
+        scheme: http
+        path: /home/executions
+      # NG-001 violation: a fifth shortcut, one over the schema's maxItems of 4
+      - label: qa-extra
+        open:
+          - newtab
+        serviceRef: metrics
+        scheme: http
+        path: /
