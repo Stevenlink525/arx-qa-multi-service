@@ -26,10 +26,15 @@ spec:
         type: NodePort
         ports:
           - port: 5678
-      # NOTE: the test case's sixth service is omitted on purpose. ClusterIP is
-      # not in the schema's type enum, and LoadBalancer passes the schema but the
-      # network handler reports "not implemented", which leaves the install stuck.
-      # Restore it once a non-NodePort type is actually supported.
+      # SV-006 probe: GatewayAPI is the third and last non-NodePort type. #527
+      # states handler.go returns ErrNotImplemented for GatewayAPI as well as
+      # LoadBalancer, so this is here to confirm that by measurement.
+      internal:
+        type: GatewayAPI
+        route:
+          port: 5678
+          protocol: http
+          displayName: Internal
   desktop:
     shortcuts:
       - label: qa-main
