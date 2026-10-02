@@ -1,0 +1,6 @@
+zh-TW:
+  subtitle: 只宣告一組 node port 與一筆桌面捷徑的 QA 對照樣本
+  description: >
+    以 n8n chart 為底的 QA 對照樣本，只宣告一個 NodePort 服務與一筆桌面捷徑，
+    用於驗證單服務應用在 System Service 表格仍只占一列、右鍵選單也不會出現
+    Other Services 子選單。非正式用途。
