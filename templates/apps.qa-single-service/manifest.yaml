@@ -1,0 +1,46 @@
+version: "1.0"
+
+metadata:
+  id: apps.qa-single-service
+  name: QA Single Service
+  version: 1.0.0
+  releaseDate: 2026-10-02
+  type: apps
+  categories:
+    - Testing
+  subtitle: One NodePort service and one shortcut, as a control group
+  description: >
+    The QA Multi Service fixture reduced to a single declared service and a
+    single desktop shortcut. SV-009 and DT-012 install it as a control: an
+    application that declares one node port must still get exactly one System
+    Service row and no Other Services submenu, so that the multi-service work
+    is shown to have left the single-service case alone. Not intended for
+    production use.
+  icon: ./icon.svg
+  developer:
+    name: ARX QA
+    url: https://github.com/ardge-labs
+  supportedLanguages:
+    - en-US
+  tags:
+    - testing
+    - fixture
+
+resources:
+  cpu: "0.5"
+  memory: "512Mi"
+  storage: "10Gi"
+  gpu: 0
+  vram: null
+
+deployment:
+  type: helm
+  helmRepository:
+    type: oci
+    name: n8n-helm-chart
+    url: oci://8gears.container-registry.com/library
+  helmChart:
+    chart: n8n
+    version: "2.0.1"
+    valuesFiles:
+      - manifests/values.yaml
