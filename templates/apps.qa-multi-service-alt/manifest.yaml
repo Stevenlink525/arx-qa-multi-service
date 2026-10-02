@@ -1,0 +1,44 @@
+version: "1.0"
+
+metadata:
+  id: apps.qa-multi-service-alt
+  name: QA Multi Service Alt
+  version: 1.0.0
+  releaseDate: 2026-09-03
+  type: apps
+  categories:
+    - Testing
+  subtitle: Same services as QA Multi Service, under different display names
+  description: >
+    The QA Multi Service fixture with every declared display name changed.
+    XC-003 installs this alongside the original to confirm that the System
+    Service table and the desktop menu both follow the manifest rather than
+    caching what they saw first. Not intended for production use.
+  icon: ./icon.svg
+  developer:
+    name: ARX QA
+    url: https://github.com/ardge-labs
+  supportedLanguages:
+    - en-US
+  tags:
+    - testing
+    - fixture
+
+resources:
+  cpu: "0.5"
+  memory: "512Mi"
+  storage: "10Gi"
+  gpu: 0
+  vram: null
+
+deployment:
+  type: helm
+  helmRepository:
+    type: oci
+    name: n8n-helm-chart
+    url: oci://8gears.container-registry.com/library
+  helmChart:
+    chart: n8n
+    version: "2.0.1"
+    valuesFiles:
+      - manifests/values.yaml
