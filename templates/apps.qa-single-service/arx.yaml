@@ -1,0 +1,23 @@
+apiVersion: arx.ardge.com/v1
+kind: ArxBinding
+spec:
+  network:
+    services:
+      # Exactly one service, on purpose. This template is the control group:
+      # SV-009 asserts that an application declaring a single node port still
+      # gets exactly one System Service row in the ordinary format, and DT-012
+      # asserts its right-click menu carries no Other Services submenu at all.
+      # Adding a second service here silently turns both cases into no-ops.
+      http:
+        type: NodePort
+        ports:
+          - port: 5678
+  desktop:
+    shortcuts:
+      - label: qa-single-main
+        open:
+          - iframe
+          - newtab
+        serviceRef: http
+        scheme: http
+        path: /
