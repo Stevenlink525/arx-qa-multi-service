@@ -1,0 +1,66 @@
+apiVersion: arx.ardge.com/v1
+kind: ArxBinding
+spec:
+  network:
+    services:
+      http:
+        type: NodePort
+        ports:
+          - port: 5678
+            displayName: Pipelines
+      admin:
+        type: NodePort
+        ports:
+          - port: 5678
+            displayName: Admin Console
+      creds:
+        type: NodePort
+        ports:
+          - port: 5678
+            displayName: Secrets
+      exec:
+        type: NodePort
+        ports:
+          - port: 5678
+      metrics:
+        type: NodePort
+        ports:
+          - port: 5678
+      # The test case's sixth service is omitted on purpose. All three
+      # non-NodePort types were measured on 2026-09-29 against 1.1.0-beta.3:
+      #   ClusterIP    rejected by the schema (not in the type enum)
+      #   LoadBalancer accepted by the schema, handler reports not implemented
+      #   GatewayAPI   accepted by the schema, handler reports not implemented
+      # This matches #527, which records that handler.go returns
+      # ErrNotImplemented for GatewayAPI and LoadBalancer until GatewayAPIHandler
+      # lands. Restore the sixth service once that ships, so SV-006 can run.
+  desktop:
+    shortcuts:
+      - label: qa-alt-main
+        open:
+          - iframe
+          - newtab
+        serviceRef: http
+        scheme: http
+        path: /
+      - label: qa-alt-admin
+        open:
+          - iframe
+          - newtab
+        serviceRef: admin
+        scheme: http
+        path: /settings/personal
+      # DT-014 probe: /rest/login answers 401, which falls under the spec's
+      # "Other" error branch. The 404 branch was covered by /rest/nonexistent.
+      - label: qa-alt-creds
+        open:
+          - iframe
+        serviceRef: creds
+        scheme: http
+        path: /rest/login
+      - label: qa-alt-exec
+        open:
+          - newtab
+        serviceRef: exec
+        scheme: http
+        path: /home/executions
